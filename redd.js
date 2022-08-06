@@ -1,9 +1,23 @@
 const redux = require('redux');
 
 const createStore = redux.createStore;
+const bindActionCreators = redux.bindActionCreators;
 
 const initialState = {
     counter: 0
+}
+
+const decrement = () => {
+    return {
+        type:'DEC_COUNTER',
+    }
+}
+
+const remove = (value) => {
+    return {
+        type:'DEC_COUNTER',
+        payload: value
+    }
 }
 
 //reducer
@@ -14,10 +28,22 @@ const rootReducer = (state = initialState, action) => {
             counter: state.counter + 1
         }
     }
+    if(action.type === 'DEC_COUNTER') {
+        return {
+            ...state,
+            counter: state.counter - 1
+        }
+    }
     if(action.type === 'ADD_COUNTER') {
         return {
             ...state, 
-            counter: state.counter + action.value
+            counter: state.counter + action.payload
+        }
+    }
+     if(action.type === 'REM_COUNTER') {
+        return {
+            ...state, 
+            counter: state.counter - action.payload
         }
     }
     return state;
@@ -34,7 +60,13 @@ const unSubscribe = store.subscribe(() => {
 
 //action
 store.dispatch({type: 'INC_COUNTER'});
-store.dispatch({type: 'ADD_COUNTER', value: 10});
+store.dispatch({type: 'ADD_COUNTER', payload: 10});
+
+//bindActionCreators
+const actions = bindActionCreators({decrement, remove}, store.dispatch)
+
+actions.decrement()
+actions.remove(10)
 
 //unSubscribe
 unSubscribe()
