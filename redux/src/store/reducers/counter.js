@@ -1,10 +1,10 @@
 //counter reducer
 
-import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
-  counter: 10
+  counter: 10,
 };
 
 //reducer
@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.DECREMENT:
       return {
         ...state,
-        counter: state.counter - 1
+        counter: state.counter - 1,
       };
 
     case actionTypes.ADD:
@@ -27,8 +27,10 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.SUB:
       return updateObject(state, { counter: state.counter - 10 });
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;

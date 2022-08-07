@@ -1,10 +1,10 @@
 //result reducer
 
-import * as actionTypes from "../actions/actionTypes";
-import { updateObject } from "../utility";
+import * as actionTypes from '../actions/actionTypes';
+import { updateObject } from '../utility';
 
 const initialState = {
-  results: []
+  results: [],
 };
 
 const deleteResult = (state, action) => {
@@ -14,13 +14,13 @@ const deleteResult = (state, action) => {
   //const newArr = state.results.filter((result, index) => index !== id)
   const newArr = state.results.filter(result => result.id !== action.resultId);
   return updateObject(state, {
-    results: newArr
+    results: newArr,
   });
 };
 
 const storeResult = (state, action) => {
   updateObject(state, {
-    results: state.results.concat({ id: new Date(), value: action.result * 3 })
+    results: state.results.concat({ id: new Date(), value: action.result * 3 }),
   });
 };
 
@@ -32,8 +32,10 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.DELETERESULT:
       return deleteResult(state, action);
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;
